@@ -69,9 +69,25 @@
     function createChangeTheme(hook, vm) {
       hook.doneEach(function() {
         const navbar = document.querySelector('.sidebar-nav');
-        const button = document.createElement('a');
-        button.innerHTML = '<span class="material-symbols-outlined">settings_brightness</span>';
-        navbar.prepend(button); 
+        const buttonTheme = document.createElement('a');
+        buttonTheme.innerHTML = '<span class="material-symbols-outlined">settings_brightness</span>';
+        navbar.prepend(buttonTheme); 
+
+        buttonTheme.addEventListener('click',()=>{
+          if (!darcula){
+            const darcula = document.createElement("link");
+            darcula.setAttribute("rel", "stylesheet");
+            darcula.setAttribute("type", "text/css");
+            darcula.setAttribute("href", "https://cdn.jsdelivr.net/gh/A5yncX/docsify-theme-darcula@v1.0/darcula.css");
+            const head = document.getElementsByTagName("head")[0];
+          }
+
+          if(head.contains(darcula)){
+            darcula.remove();
+          }else{
+            head.appendChild(darcula);
+          }
+        });
       });
     }
     
