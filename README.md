@@ -28,6 +28,7 @@ Para aprovação na disciplina o aluno deverá:
     Entrega das atividades avaliativas – 2,0
     Atividade prática supervisionada (APS) – 1,0
 
-% Nota \; semestre \geq 7
-
+$$
+Nota \; semestre \geq 7
+$$
     
