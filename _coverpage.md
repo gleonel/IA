@@ -1,15 +1,23 @@
 <h1 id="cover-heading">
-  Inteligência Artificial
+  DocsifyJS Template  <!-- TODO: Update title -->
 </h1>
 
 
->  Prof. Ms. Gildo Leonel
+>  Starter template for a Markdown-based docs site <!-- TODO: Replace with your description -->
 
 
-- :hourglass_flowing_sand: Segunda: 19h-20h20 / Quarta: 20h40-22h
+<!-- TODO: Update to match your project's benefits/features. Git emojis work great here. -->
 
-- [Começar](#apresentacao) 
+- :hourglass_flowing_sand: Quickly set up an elegant, responsive site
+- :open_file_folder: Use your markdown docs as content
+- :sparkles: No compilation step and no templating syntax to learn
+- :nut_and_bolt: Built on [DocsifyJS](https://docsify.js.org/)
+- :pushpin: The library loads in the browser - no local dependencies
+- :cloud: Serve locally and on GitHub Pages or Netlify
 
+
+[Use this template](https://github.com/MichaelCurrin/docsify-js-template/generate) <!-- TODO: Remove on your copy of this template.-->
+[Get Started](#docsifyjs-template) <!-- TODO: Use ID of your homepage heading -->
 
 <!-- TODO: Set your background color or image. -->
-![color](#3DDBBA)
+![color](#b3d9f8)
