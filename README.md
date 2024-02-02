@@ -29,6 +29,6 @@ Para aprovação na disciplina o aluno deverá:
     Atividade prática supervisionada (APS) – 1,0
 
 $$
-Nota \; semestre \geq 7
+Nota  semestre \geq 7
 $$
     
