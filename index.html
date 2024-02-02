@@ -12,29 +12,16 @@
 
   <!-- Default Theme (see https://docsify.js.org/#/themes) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 
 </head>
 
 <body>
   <div id="app"></div>
 
-  <!-- Required -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-
-  <!-- Recommended -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
-
-  
   <script>
-    mermaid.initialize({ startOnLoad: false });
-
     // Docsify Configuration (see https://docsify.js.org/#/configuration)
     window.$docsify = {
-      name: 'Inteligência Artificial',
+      name: 'Simple Docsify Template',
 
       // Sidebar Configuration
       auto2top: true,
@@ -49,28 +36,16 @@
         noData: 'Nenhuma correspondência encontrada.',
         // Headline depth, 1 - 6
         depth: 2,
-      },
-      markdown: {
-        renderer: {
-          code: function(code, lang) {
-            if (lang === "mermaid") {
-              return (
-                '<div class="mermaid">' + mermaid.render(lang, code) + "</div>"
-              );
-            }
-            return this.origin.code.apply(this, arguments);
-          }
-        }
-      },
-      pagination: {
-        previousText: 'Anterior',
-        // or
-        nextText: 'Próximo',
-        crossChapter: true,
-        crossChapterText: true,
-      },
+      }
     };
   </script>
+
+  <!-- Required -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- Recommended -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
 
 </body>
 </html>
