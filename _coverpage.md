@@ -8,8 +8,7 @@
 
 <!-- TODO: Update to match your project's benefits/features. Git emojis work great here. -->
 
-- :hourglass_flowing_sand: Segunda: 19h-20h20
-- :hourglass_flowing_sand: Quarta: 20h40-22h
+- :hourglass_flowing_sand: Segunda: 19h-20h20 :hourglass_flowing_sand: Quarta: 20h40-22h
 
 
 [Começar](#apresentacao) <!-- TODO: Use ID of your homepage heading -->
