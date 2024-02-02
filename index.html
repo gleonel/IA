@@ -13,6 +13,8 @@
   <!-- Default Theme (see https://docsify.js.org/#/themes) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/style.min.css">
+
 </head>
 
 <body>
@@ -21,7 +23,7 @@
   <script>
     // Docsify Configuration (see https://docsify.js.org/#/configuration)
     window.$docsify = {
-      name: 'Simple Docsify Template',
+      name: 'Inteligência Artificial',
 
       // Sidebar Configuration
       auto2top: true,
@@ -38,9 +40,25 @@
         depth: 2,
       },
 
+      //Mermaid Config
       mermaidConfig: {
         querySelector: ".mermaid"
+      },
+
+      //Darkmode Config
+      darkMode: {
+        dark: {
+          background: "#1c2022",
+          toggleBtnBg: "#34495e",
+          textColor: "#b4b4b4"
+        },
+        light: {
+          background: "white",
+          toggleBtnBg: "var(--theme-color)",
+          textColor: "var(--theme-color)"
+        }
       }
+
       
     };
   </script>
@@ -57,6 +75,6 @@
     window.mermaid = mermaid;
   </script>
   <script src="//unpkg.com/docsify-mermaid@2.0.1/dist/docsify-mermaid.js"></script>
-
+  <script src="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/index.min.js"></script>
 </body>
 </html>
