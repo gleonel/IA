@@ -12,7 +12,6 @@
 - :hourglass_flowing_sand: Quarta: 20h40-22h
 
 
-[Use this template](https://github.com/MichaelCurrin/docsify-js-template/generate) <!-- TODO: Remove on your copy of this template.-->
 [Começar](#apresentacao) <!-- TODO: Use ID of your homepage heading -->
 
 <!-- TODO: Set your background color or image. -->
