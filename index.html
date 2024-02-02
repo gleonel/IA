@@ -16,7 +16,6 @@
     title="docsify-darklight-theme"
     type="text/css"
   />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <style>
       /* Fix issue on mobile devices where a custom cover image goes off the screen. */
       section.cover.show {
@@ -66,38 +65,7 @@
       },
 
       
-    };
-
-    
-
-    // Create change theme icon
-    function createChangeTheme(hook, vm) {
-      hook.doneEach(function() {
-        const navbar = document.querySelector('.sidebar-nav');
-        const buttonTheme = document.createElement('a');
-        buttonTheme.innerHTML = '<span class="material-symbols-outlined">settings_brightness</span>';
-        navbar.prepend(buttonTheme); 
-        const darcula = document.createElement("link");
-        darcula.setAttribute("rel", "stylesheet");
-        darcula.setAttribute("type", "text/css");
-        darcula.setAttribute("href", "https://cdn.jsdelivr.net/gh/sushantrahate/docsify-darkly-theme/css/darkly.min.css");
-        const head = document.getElementsByTagName("head")[0];
-        
-        buttonTheme.addEventListener('click',()=>{
-          if(head.contains(darcula)){
-            darcula.remove();
-          }else{
-            head.appendChild(darcula);
-          }
-        });
-        
-      });
-    }
-    
-    // Add to plugin array
-    $docsify.plugins = [].concat(createChangeTheme, $docsify.plugins);
-
-    
+    }; 
   </script>
 
   <!-- Required -->
