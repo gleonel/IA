@@ -10,13 +10,8 @@
   <title>Inteligência Artificial</title>
   
   <!-- Default Theme (see https://docsify.js.org/#/themes) -->
-  <!--   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-themeable/style.min.css" type="text/css">
-
-  <!-- docsify-themeable styles-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css" title="light">
-  <link rel="stylesheet alternative" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css" title="dark">
-  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <style>
       /* Fix issue on mobile devices where a custom cover image goes off the screen. */
       section.cover.show {
@@ -67,6 +62,36 @@
 
       
     };
+
+    
+
+    // Create change theme icon
+    function createChangeTheme(hook, vm) {
+      hook.doneEach(function() {
+        const navbar = document.querySelector('.sidebar-nav');
+        const buttonTheme = document.createElement('a');
+        buttonTheme.innerHTML = '<span class="material-symbols-outlined">settings_brightness</span>';
+        navbar.prepend(buttonTheme); 
+        const darcula = document.createElement("link");
+        darcula.setAttribute("rel", "stylesheet");
+        darcula.setAttribute("type", "text/css");
+        darcula.setAttribute("href", "https://cdn.jsdelivr.net/gh/sushantrahate/docsify-darkly-theme/css/darkly.min.css");
+        const head = document.getElementsByTagName("head")[0];
+        
+        buttonTheme.addEventListener('click',()=>{
+          if(head.contains(darcula)){
+            darcula.remove();
+          }else{
+            head.appendChild(darcula);
+          }
+        });
+        
+      });
+    }
+    
+    // Add to plugin array
+    $docsify.plugins = [].concat(createChangeTheme, $docsify.plugins);
+
     
   </script>
 
@@ -88,14 +113,5 @@
   <script defer src="//unpkg.com/prismjs@1/components/prism-bash.min.js"></script>
   <script defer src="//unpkg.com/prismjs@1/components/prism-javascript.min.js"></script>
   <script defer src="//unpkg.com/prismjs@1/components/prism-python.min.js"></script>
-  <script
-    src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-themeable/main.min.js"
-    type="text/javascript">
-  </script>
-  
-  <script
-      src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-themeable/index.min.js"
-      type="text/javascript">
-  </script>
 </body>
 </html>
