@@ -11,7 +11,13 @@
   
   <!-- Default Theme (see https://docsify.js.org/#/themes) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-
+  <style>
+      /* Fix issue on mobile devices where a custom cover image goes off the screen. */
+      section.cover.show {
+          height: 100%;
+      }
+  </style>
+  
 </head>
 
 <body>
@@ -67,5 +73,10 @@
   </script>
   <script src="//unpkg.com/docsify-mermaid@2.0.1/dist/docsify-mermaid.js"></script>
   <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!-- Syntax highlighting.-->
+  <script defer src="//unpkg.com/prismjs@1/components/prism-markdown.min.js"></script>
+  <script defer src="//unpkg.com/prismjs@1/components/prism-bash.min.js"></script>
+  <script defer src="//unpkg.com/prismjs@1/components/prism-javascript.min.js"></script>
+<script defer src="//unpkg.com/prismjs@1/components/prism-python.min.js"></script>
 </body>
 </html>
