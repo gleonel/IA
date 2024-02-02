@@ -6,13 +6,11 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
 
-  <!-- Replace with your own title and description. -->
-  <title>Awesome Docsify Site</title>
-  <meta name="description" content="An awesome docsify site for publishing some content on the web.">
-
+  
+  <title>Inteligência Artificial</title>
+  
   <!-- Default Theme (see https://docsify.js.org/#/themes) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/style.min.css">
 
 </head>
@@ -58,7 +56,15 @@
           textColor: "var(--theme-color)"
         }
       },
-      themeColor: "#42b983"
+      themeColor: "#42b983",
+
+      //Pagination Config
+      pagination: {
+        previousText: 'Anterior',
+        nextText: 'Próximo',
+        crossChapter: true,
+        crossChapterText: true,
+      },
 
       
     };
@@ -77,5 +83,6 @@
   </script>
   <script src="//unpkg.com/docsify-mermaid@2.0.1/dist/docsify-mermaid.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/index.min.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
 </body>
 </html>
