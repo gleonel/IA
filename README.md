@@ -8,7 +8,8 @@ Quantidade total de horas: 80
 
 ## Aula 
 
-Segunda-Feira de 19:00 às 20:20 (1a e 2a aula).
+Segunda-Feira de 20:20 às 22:00 (3a e 4a aula).
+
 Quarta-Feira de 20:20 às 22:00 (3a e 4a aula).
 
 
