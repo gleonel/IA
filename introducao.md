@@ -527,8 +527,6 @@ Imagine que você está  <span style="color:#7030A0">perdido em uma floresta </s
 
 Isso acelera a busca\, pois não será mais necessário procurar no topo de montanhas e em cima das árvores\, por exemplo\.
 
-<img src="img/IA_01_Introducao22.png" height="200px" class="center">class="center">
-
 
 
 <br>
