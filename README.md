@@ -34,7 +34,7 @@ Para aprovação na disciplina o aluno deverá:
 
 * Trabalhos – 4,0 pontos
 
-* Entrega das atividades semanas – 2,0
+* Entrega das atividades semanais – 2,0
 
 * Atividade prática supervisionada (APS) – 1,0
 
