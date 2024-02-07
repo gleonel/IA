@@ -1,2 +1,3 @@
 - [Apresentação](README)
 - [Introdução](introducao)
+- [Métodos de Pesquisa](pesquisas)
