@@ -706,3 +706,127 @@ graph TB;
 - Escrever uma função para calcular e retornar a altura de uma árvore binária\.
 
 - Desenvolver um algoritmo para realizar o percurso em extensão em uma árvore binária de caracteres e imprimir as informações de todos os seus nós\.
+
+## Árvores Binárias de Busca (BST)
+
+``` mermaid
+
+flowchart
+   A((100)) --> B((50)) & C((200))
+   B --> D((30)) & E((70))
+   C --> F((140)) & G((400))
+   D -->  H((null)) & I((42))
+   E --> J((65)) & R((80))
+   F --> K((105)) & L((null))
+   K --> M((null)) & N((107))
+   G --> O((350)) & P((null))
+
+```
+
+> Percorra esta árvore usando o método in-ordem. O que você percebeu?
+
+
+Uma árvore binária de busca serve para o armazenamento de dados na memória do computador e a sua subseqüente recuperação.
+
+Em uma árvore binária de busca cada nó contém um campo chamado key, podendo haver outras informações, além dos ponteiros left e right.
+
+O campo key especifica em geral uma chave que identifica de <span class="destaque">forma única</span> um determinado registro ou informação. Exemplos de chaves: número de identidade, número CPF, etc. Assim, suporemos que todos os valores de key são distintos.
+
+Dado um valor qualquer, deseja-se localizar o nó da árvore, se houver, cujo key é igual ao valor dado
+
+Característica da árvore binária de busca: Para <span class="destaque">todo nó x</span> da árvore binária de busca, as seguintes condições são verficadas:
+
+- key(x) ≥ key(y), para todo nó y da subárvore esquerda.
+- key(x) < key(y), para todo nó y da subárvore direita.
+
+
+
+### Busca BST
+
+A busca começa pelo nó raiz. 
+Quando a busca chega a um nó qualquer da árvore, ou esse nó já contém o valor procurado e a busca termina, ou ele contém um valor
+menor ou maior que x. 
+
+Isso orienta o prosseguimento da busca em apenas uma das subárvores, podendo descartar a outra subárvore.
+
+<br>
+
+``` js
+
+buscar(valor) {
+        let noAtual = this.raiz;
+        while (noAtual !== null) {
+            if (valor === noAtual.valor) {
+                return true;
+            } else if (valor < noAtual.valor) {
+                noAtual = noAtual.esquerda;
+            } else {
+                noAtual = noAtual.direita;
+            }
+        }
+        return false;
+}
+
+```
+<br>
+
+### Inserção BST
+
+Deseja-se inserir um novo elemento x numa árvore binária de busca
+
+- Busca-se x na árvore.
+- Caso não esteja já presente, chega-se a um ponteiro null e insere-se o novo elemento nesse lugar.
+
+> Inserir 102 na árvore a seguir
+
+``` mermaid
+
+flowchart
+   A((100)) --> B((50)) & C((200))
+   B --> D((30)) & E((70))
+   C --> F((140)) & G((400))
+   D -->  H((null)) & I((42))
+   E --> J((65)) & R((80))
+   F --> K((105)) & L((null))
+   K --> M((null)) & N((107))
+   G --> O((350)) & P((null))
+
+```
+
+Exemplo:
+
+<br>
+
+``` js
+
+inserir(valor) {
+        const novoNo = new No(valor);
+        if (this.raiz === null) {
+            this.raiz = novoNo;
+            return this;
+        } else {
+            let noAtual = this.raiz;
+            while (true) {
+                if (valor < noAtual.valor) {
+                    if (noAtual.esquerda === null) {
+                        noAtual.esquerda = novoNo;
+                        return this;
+                    }
+                    noAtual = noAtual.esquerda;
+                } else {
+                    if (noAtual.direita === null) {
+                        noAtual.direita = novoNo;
+                        return this;
+                    }
+                    noAtual = noAtual.direita;
+                }
+            }
+        }
+}
+
+```
+<br>
+
+> Agora suponha que os seguintes valores são inseridos, nesta ordem, numa árvore binária de busca inicialmente vazia. Desenhe a árvore resultante:
+> 
+> 8 9 11 15 19 20 21 7 3 2 1 5 6 4 13 14 10 12 17 16 18.
