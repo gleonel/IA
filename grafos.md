@@ -55,8 +55,8 @@ __Remodelando o problema__
 
 
 
-<img src="./img/IA_06_Grafos e Técnicas de Busca6.png" height="200px">
-<img src="./img/IA_06_Grafos e Técnicas de Busca7.png" height="200px">
+<img src="./img/IA_06_Grafos e Técnicas de Busca6.png" height="400px">
+<img src="./img/IA_06_Grafos e Técnicas de Busca7.png" height="400px">
 
 O problema agora consiste em percorrer todos os arcos, passando por cada um apenas uma vez, sem levantar o lápis do papel.
 
