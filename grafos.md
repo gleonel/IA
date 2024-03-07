@@ -372,6 +372,21 @@ linkStyle 1,3,5,4,6,8 stroke-width:2px,fill:none,stroke:red;
 <br>
 
 
+O peso deste problema poderia representar a distância em Km de pois pontos de um trajeto.
+
+> Exercício
+
+Desenhe o grafo que modelaria o problema a seguir:
+
+<img src="./img/IA_06_Grafos e Técnicas de Busca22.png" class="center">
+
+
+Agora se fossemos utilizar uma heuristica (distância <span class="destaque">distâncias euclidianas</span> em relação à meta \(distância em linha reta\)\.) para representar nosso problema:
+
+<img src="./img/IA_06_Grafos e Técnicas de Busca23.png" class="center">
+
+
+
 
 ## Busca Melhor Escolha
 
@@ -380,7 +395,7 @@ Essa busca utiliza uma heurística para ordenar a adição dos nós na fila util
 O algoritmo de busca em largura, modificado somente quanto à determinação da ordem de adição dos vértices, é utilizado\.
 
 Para esse problema, a heurística utilizada será:
-  * Os nós serão adicionados em ordem de suas <span class="destaque">distâncias euclidianas</span> em relação à meta \(distância em linha reta\)\.
+  * Os nós serão adicionados em ordem de suas <span class="destaque">distâncias euclidianas</span>.
   * Essa distância foi adicionada entre ao lado de cada vértice\.
   <br>
   
