@@ -206,7 +206,7 @@ Agora se fossemos utilizar uma heuristica (distância <span class="destaque">dis
 
 
 
-## Busca Melhor Escolha
+# Busca Melhor Escolha
 
 Essa busca utiliza uma heurística para ordenar a adição dos nós na fila utilizada para determinar a ordem em que os vértices serão percorridos\.
 
@@ -290,7 +290,7 @@ A função <span class="destaque">GetOrdenados(no)</span> retorna os vértices q
 
 
 
-## Algoritmo Guloso
+# Algoritmo Guloso
 
 Procura resolver o problema fazendo a escolha localmente ótima em cada fase.
 
@@ -338,7 +338,7 @@ Utiliza conhecimento sobre o domínio para encontrar soluções mais eficientes 
 Conforme aprendemos a busca pela melhor escolha: expande o nó que possui função de avaliação mais baixa;
 
 
-## Heureca! (pretérito de Heurisko)
+## Heureca!
 
 Função de avaliação <span class="destaque">(f(n))</span>: mede o custo de um nó até o objetivo.
 
@@ -444,20 +444,24 @@ Para esse problema, a heurística <span class="destaque">ℎ(𝑛) </span>utiliz
 - Distância euclidiana em relação à meta (distância em linha reta).
 
 - Essa distância foi adicionada entre colchetes ao lado de cada vértice.
-- 
+  
 
 <img src="./img/IA_07_Tecnicas Busca_A estrela17.png" height="200px" class="center">
 
 
 <br>
 
-Estruturas necessárias: 
+### Estruturas necessárias: 
 
-custos - Objeto responsável pelo cálculo de 𝑓(𝑛)
-abertos - Fila que mantém os seus nós ordenados em acordo com o valor de 𝑓(𝑛)
-fechados - Array associativo que facilita a identificação de vértices já visitados.
-Rastreador(vertice, Rastreador Anterior, custo) - Agora ao instanciar um rastreamento, é necessário passar o vértice, o Rastreamento anterior e o custo (valor de 𝑓(𝑛)). 
-Contem(v) - ContainsKey recebe uma chave e retorna verdadeiro se a chave existir no Array associativo 
+<span class="destaque">custos</span> - Objeto responsável pelo cálculo de 𝑓(𝑛)
+
+<span class="destaque">abertos</span> - Fila que mantém os seus nós ordenados em acordo com o valor de 𝑓(𝑛)
+
+<span class="destaque">fechados</span> - Array associativo que facilita a identificação de vértices já visitados.
+
+<span class="destaque">Rastreador</span>(vertice, Rastreador Anterior, custo) - Agora ao instanciar um rastreamento, é necessário passar o vértice, o Rastreamento anterior e o custo (valor de 𝑓(𝑛)). 
+
+<span class="destaque">Contem</span>(v) - ContainsKey recebe uma chave e retorna verdadeiro se a chave existir no Array associativo 
 
 
 
@@ -493,7 +497,7 @@ bool Buscar(ICusto custos, Vertice origem, Vertice meta) {
 
 ## Busca A*: ótima e completa??
 
-  SIM, se a heurística for admissível - desde que a função h(n) nunca superestime o custo para alcançar um objetivo;
+  <span class="destaque">SIM</span>, se a heurística for admissível - desde que a função h(n) nunca superestime o custo para alcançar um objetivo;
 
   * ex. a distância em linha reta.
   
@@ -539,14 +543,6 @@ h2 = a soma das distâncias dos blocos de suas posições objetivos. (adim., o r
 
 <img src="./img/IA_07_Tecnicas Busca_A estrela10.png" height="200px" class="center">
 
-## Qualidade de uma heurística: fator de ramificação efetiva
-
-para um problema em que A* gera N nós e cuja profundidade de solução seja d, o fator de ramificação efetiva b* é o fator de ramificação que uma árvore uniforme de profundidade d precisa ter para conter N+1 nós. Assim:
-
-N+1 = 1+ b* + (b*)2 + ... + (b*)d
-
-<img src="./img/IA_07_Tecnicas Busca_A estrela11.png" height="200px" class="center">
-
 
 
 ## Como criar heurísticas admissíveis?
@@ -573,5 +569,4 @@ Limite inferior sobre o custo do problema completo
 
 3- banco de dados de padrões: armazenar os custos de soluções exatas para toda instância possível de subproblema (ex. toda configuração possível dos 4 blocos do espaço na fig. anterior).
 
-<img src="./img/IA_07_Tecnicas Busca_A estrela13.png" height="200px" class="center">
 
