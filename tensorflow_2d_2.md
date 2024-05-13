@@ -16,10 +16,13 @@ Assim temos os exemplos mais comuns de funções de ativação:
 - A função sigmóide normaliza a saída para um intervalo entre 0 e 1, útil para tarefas como regressão logística.
 - A função ReLU permite que os neurônios se concentrem apenas em entradas positivas, ignorando entradas negativas.
 
-## Set up a Node.js app
-Install Node.js and npm. For supported platforms and dependencies, please see the tfjs-node installation guide.
+## Aplicativo Node.js.
 
-Create a directory called ./baseball for our Node.js app. Copy the linked package.json and webpack.config.js into this directory to configure the npm package dependencies (including the @tensorflow/tfjs-node npm package). Then run npm install to install the dependencies.
+Instale o Node.js e o npm. 
+
+Crie um diretório chamado `./baseball` para nosso aplicativo `Node.js`. Copie o [`package.json`]('./code/baseball/package.json') e [`webpack.config.js`]('./code/baseball/webpack.config.js') vinculados neste diretório para configurar as dependências do pacote npm (incluindo o pacote npm `@tensorflow/tfjs-node`). 
+
+Em seguida, execute `npm install` para instalar as dependências.
 
 
 <br>
@@ -38,17 +41,16 @@ node_modules  package.json  package-lock.json  webpack.config.js
 <br>
 
 
-Now you are ready to write some code and train a model!
 
-## Setup the training and test data
-You will use the training and test data as CSV files from the links below. Download and explore the data in these files:
+## Configure os dados de treinamento e teste
 
-pitch_type_training_data.csv
+Você usará os dados de treinamento e teste como arquivos CSV nos links abaixo. Baixe e explore os dados nestes arquivos:
 
-pitch_type_test_data.csv
+[pitch_type_training_data.csv](https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv)
 
-Let's look at some sample training data:
+[pitch_type_test_data.csv](https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv)
 
+Vejamos alguns exemplos de dados de treinamento:
 
 <br>
 
@@ -63,26 +65,32 @@ vx0,vy0,vz0,ax,ay,az,start_speed,left_handed_pitcher,pitch_code
 <br>
 
 
-There are eight input features - describing pitch sensor data:
+Existem oito recursos de entrada - que descrevem os dados do sensor de inclinação:
 
-- ball velocity (vx0, vy0, vz0)
-- ball acceleration (ax, ay, az)
-- starting speed of pitch
-- whether pitcher is left handed or not
+
+- velocidade da bola (vx0, vy0, vz0)
+- aceleração da bola (ax, ay, az)
+- velocidade inicial de arremesso
+- se o arremessador é canhoto ou não
   
 
-and one output label,pitch_code that signifies one of seven pitch types: 
-- Fastball (2-seam), 
-- Fastball (4-seam), 
-- Fastball (sinker), 
-- Fastball (cutter), 
+e um rótulo de saída, pitch_code que significa um dos [sete tipos de pitch](https://www.mlb.com/glossary/pitch-types):
+
+- Fastball (2-seam)
+- Fastball (4-seam)
+- Fastball (sinker)
+- Fastball (cutter)
 - Slider, 
 - Changeup, 
 - Curveball
 
-The goal is to build a model that is able to predict the pitch type given pitch sensor data.
+O objetivo é construir um modelo que seja capaz de prever o tipo de pitch com base nos dados do sensor de pitch.
 
-Before creating the model, you need to prepare the training and test data. Create the file [`pitch_type.js` html] in the [`baseball/` html] dir, and create the following code into it. This code loads training and test data using the [`tf.data.csv` html] API. It also normalizes the data (which is always recommended) using a min-max normalization scale.
+Antes de criar o modelo, você precisa preparar os dados de treinamento e teste. 
+
+Crie o arquivo [`pitch_type.js` html] no diretório [`baseball/` html] e crie o seguinte código nele. 
+
+Este código carrega dados de treinamento e teste usando a API [`tf.data.csv` html]. Também normaliza os dados (o que é sempre recomendado) usando uma escala de normalização min-max.
 
 <br>
 
@@ -91,6 +99,7 @@ Before creating the model, you need to prepare the training and test data. Creat
 const tf = require('@tensorflow/tfjs');
 
 // util function to normalize a value between a given range.
+
 function normalize(value, min, max) {
   if (min === undefined || max === undefined) {
     return value;
@@ -99,8 +108,10 @@ function normalize(value, min, max) {
 }
 
 // data can be loaded from URLs or local file paths when running in Node.js.
+
 const TRAIN_DATA_PATH =
 'https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv';
+
 const TEST_DATA_PATH =    'https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv';
 
 // Constants from training data
@@ -159,12 +170,13 @@ const testValidationData =
 ```
 <br>
 
-## Create model to classify pitch types
-Now you are ready to build the model. Use the tf.layers API to connect the inputs (shape of [8] pitch sensor values) to 3 hidden fully-connected layers consisting of ReLU activation units, followed by one softmax output layer consisting of 7 units, each representing one of the output pitch types.
+## Crie um modelo para classificar os tipos de pitch
 
-Train the model with the adam optimizer and the sparseCategoricalCrossentropy loss function.
+Agora você está pronto para construir o modelo. Use a API `tf.layers` para conectar as entradas (formato de [8] valores do sensor de pitch) a 3 camadas ocultas totalmente conectadas que consistem em unidades de ativação `ReLU`, seguidas por uma camada de saída `softmax` que consiste em 7 unidades, cada uma representando uma das saídas (tipos de pitch), a soma das saídas da softmax é sempre 1.
 
-Add the following code to the end of [`pitch_type.js` html]:
+Treine o modelo com o otimizador Adam e a função de perda sparseCategoricalCrossentropy.
+
+Adicione o seguinte código ao final de [`pitch_type.js` html]:
 
 <br>
 
@@ -186,9 +198,10 @@ model.compile({
 <br>
 
 
-Trigger the training from the main server code that you will write later.
 
-To complete the pitch_type.js module, let's write a function to evaluate the validation and test data set, predict a pitch type for a single sample, and compute accuracy metrics. Append this code to the end of [`pitch_type.js` html]:
+Para completar o módulo `pitch_type.js`, vamos escrever uma função para avaliar o conjunto de dados de validação e teste, prever um tipo de pitch para uma única amostra e calcular métricas de precisão. 
+
+Anexe este código ao final de [`pitch_type.js` html]:
 
 <br>
 
@@ -282,11 +295,17 @@ module.exports = {
 ```
 <br>
 
-## Train model on the server
+## Treine o modelo no servidor
 
-Write the server code to perform model training and evaluation in a new file called server.js. First, create an HTTP server and open a bidirectional socket connection using the socket.io API. Then execute model training using the [`model.fitDataset API` html], and evaluate model accuracy using the [`pitch_type.evaluate()` html] method you wrote earlier. Train and evaluate for 10 iterations, printing metrics to the console.
+Escreva o código do servidor para realizar o treinamento e avaliação do modelo em um novo arquivo chamado server.js. 
 
-Copy the below code to server.js:
+Primeiro, crie um servidor HTTP e abra uma conexão de soquete bidirecional usando a API socket.io. 
+
+Em seguida, execute o treinamento do modelo usando o [`model.fitDataset API` html] e avalie a precisão do modelo usando o método [`pitch_type.evaluate()` html] que você escreveu anteriormente. 
+
+Treine e avalie 10 iterações, imprimindo métricas no console.
+
+Crie o código abaixo no arquivo `server.js`:
 
 <br>
 
@@ -340,7 +359,11 @@ run();
 <br>
 
 
-At this point, you are ready to run and test the server! You should see something like this, with the server training one epoch in each iteration (you could also use the [`model.fitDataset API` html] to train multiple epochs with one call). If you encounter any errors at this point, please check your node and npm installation.
+Neste ponto, você está pronto para executar e testar o servidor! 
+
+Você deverá ver algo assim, com o servidor treinando uma época em cada iteração (você também pode usar o [`model.fitDataset API` html] para treinar múltiplas épocas com uma chamada). 
+
+Se você encontrar algum erro neste ponto, verifique a instalação do seu Node e npm.
 
 <br>
 
@@ -356,11 +379,15 @@ eta=0.0 ========================================================================
 ```
 <br>
 
-## Create client page and display code
+## Crie a página do cliente e exiba o código
 
-Now that the server is ready, the next step is to write the client code and that runs in the browser. Create a simple page to invoke model prediction on the server and display the result. This uses `socket.io` for client/server communication.
+Agora que o servidor está pronto, o próximo passo é escrever o código do cliente e rodar no navegador. 
 
-First, create `index.html` in the` baseball/` folder:
+Crie uma página simples para invocar a previsão do modelo no servidor e exibir o resultado. 
+
+Isso usa `socket.io` para comunicação cliente/servidor.
+
+Primeiro, crie `index.html` na pasta` baseball/`:
 
 <br>
 
@@ -399,7 +426,8 @@ First, create `index.html` in the` baseball/` folder:
 <br>
 
 
-Then create a new file `client.js` in the `baseball/` folder with the below code:
+Em seguida, crie um novo arquivo `client.js` na pasta `baseball/` com o código abaixo:
+
 
 <br>
 
@@ -451,10 +479,15 @@ function plotPredictResult(result) {
 ```
 <br>
 
-The client handles the `trainingComplete` socket message to display a prediction button. When this button is clicked, the client sends a socket message with sample sensor data. Upon receiving a `predictResult` message, it displays the prediction on the page.
+O cliente lida com a mensagem do soquete `trainingComplete` para exibir um botão de previsão. 
 
-## Run the app
-Run both the server and client to see the full app in action:
+Quando este botão é clicado, o cliente envia uma mensagem de soquete com dados do sensor de amostra. 
+
+Ao receber uma mensagem `predictResult`, exibe a previsão na página.
+
+## Execute o aplicativo
+
+Execute o servidor e o cliente para ver o aplicativo completo em ação:
 
 <br>
 
@@ -469,4 +502,8 @@ $ npm run start-server
 ```
 <br>
 
-Open the client page in your browser ( `http://localhost:8080`). When model training finishes, click on the Predict Sample button. You should see a prediction result displayed in the browser. Feel free to modify the sample sensor data with some examples from the test CSV file and see how accurately the model predicts.
+Abra a página do cliente em seu navegador ( `http://localhost:8080`). Quando o treinamento do modelo terminar, clique no botão Prever amostra. 
+
+Você deverá ver um resultado de previsão exibido no navegador. 
+
+Sinta-se à vontade para modificar os dados do sensor de amostra com alguns exemplos do arquivo CSV de teste e ver a precisão com que o modelo prevê.
