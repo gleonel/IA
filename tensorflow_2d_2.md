@@ -20,7 +20,7 @@ Assim temos os exemplos mais comuns de funções de ativação:
 
 Instale o Node.js e o npm. 
 
-Crie um diretório chamado `./baseball` para nosso aplicativo `Node.js`. Copie o [`package.json`]([./code/baseball/package.json](https://github.com/tensorflow/tfjs-examples/blob/master/baseball-node/package.json)) e [`webpack.config.js`]([./code/baseball/webpack.config.js](https://github.com/tensorflow/tfjs-examples/blob/master/baseball-node/webpack.config.js)) vinculados neste diretório para configurar as dependências do pacote npm (incluindo o pacote npm `@tensorflow/tfjs-node`). 
+Crie um diretório chamado `./baseball` para nosso aplicativo `Node.js`. Copie o [`package.json`](https://github.com/tensorflow/tfjs-examples/blob/master/baseball-node/package.json) e [`webpack.config.js`](https://github.com/tensorflow/tfjs-examples/blob/master/baseball-node/webpack.config.js) vinculados neste diretório para configurar as dependências do pacote npm (incluindo o pacote npm `@tensorflow/tfjs-node`). 
 
 Em seguida, execute `npm install` para instalar as dependências.
 
