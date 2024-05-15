@@ -90,7 +90,7 @@ Antes de criar o modelo, você precisa preparar os dados de treinamento e teste.
 
 Crie o arquivo [`pitch_type.js` html] no diretório [`baseball/` html] e crie o seguinte código nele. 
 
-Este código carrega dados de treinamento e teste usando a API [`tf.data.csv` html]. Também normaliza os dados (o que é sempre recomendado) usando uma escala de normalização min-max.
+Este código carrega dados de treinamento e teste usando a API [tf.data.csv](https://js.tensorflow.org/api/4.19.0/#data.csv). Também normaliza os dados (o que é sempre recomendado) usando uma escala de normalização min-max.
 
 <br>
 
@@ -98,7 +98,7 @@ Este código carrega dados de treinamento e teste usando a API [`tf.data.csv` ht
 
 const tf = require('@tensorflow/tfjs');
 
-// util function to normalize a value between a given range.
+// função para normalizar um valor entre um determinado intervalo.
 
 function normalize(value, min, max) {
   if (min === undefined || max === undefined) {
@@ -107,14 +107,14 @@ function normalize(value, min, max) {
   return (value - min) / (max - min);
 }
 
-// data can be loaded from URLs or local file paths when running in Node.js.
+// os dados podem ser carregados de URLs ou caminhos de arquivos locais durante a execução em Node.js.
 
 const TRAIN_DATA_PATH =
 'https://storage.googleapis.com/mlb-pitch-data/pitch_type_training_data.csv';
 
 const TEST_DATA_PATH =    'https://storage.googleapis.com/mlb-pitch-data/pitch_type_test_data.csv';
 
-// Constants from training data
+// Constantes de dados de treinamento
 const VX0_MIN = -18.885;
 const VX0_MAX = 18.065;
 const VY0_MIN = -152.463;
@@ -134,8 +134,8 @@ const NUM_PITCH_CLASSES = 7;
 const TRAINING_DATA_LENGTH = 7000;
 const TEST_DATA_LENGTH = 700;
 
-// Converts a row from the CSV into features and labels.
-// Each feature field is normalized within training data constants
+// Converte uma linha do CSV em recursos e rótulos.
+// Cada campo de recurso é normalizado nas constantes de dados de treinamento
 const csvTransform =
     ({xs, ys}) => {
       const values = [
@@ -155,13 +155,13 @@ const trainingData =
         .shuffle(TRAINING_DATA_LENGTH)
         .batch(100);
 
-// Load all training data in one batch to use for evaluation
+// Carregue todos os dados de treinamento em um lote para usar na avaliação
 const trainingValidationData =
     tf.data.csv(TRAIN_DATA_PATH, {columnConfigs: {pitch_code: {isLabel: true}}})
         .map(csvTransform)
         .batch(TRAINING_DATA_LENGTH);
 
-// Load all test data in one batch to use for evaluation
+// Carregue todos os dados de teste em um lote para usar na avaliação
 const testValidationData =
     tf.data.csv(TEST_DATA_PATH, {columnConfigs: {pitch_code: {isLabel: true}}})
         .map(csvTransform)
@@ -172,9 +172,9 @@ const testValidationData =
 
 ## Crie um modelo para classificar os tipos de pitch
 
-Agora você está pronto para construir o modelo. Use a API `tf.layers` para conectar as entradas (formato de [8] valores do sensor de pitch) a 3 camadas ocultas totalmente conectadas que consistem em unidades de ativação `ReLU`, seguidas por uma camada de saída `softmax` que consiste em 7 unidades, cada uma representando uma das saídas (tipos de pitch), a soma das saídas da softmax é sempre 1.
+Agora você está pronto para construir o modelo. Use a API `tf.layers` para conectar as entradas (formato de [8] valores do sensor de pitch) a 3 camadas ocultas totalmente conectadas que consistem em unidades de ativação `ReLU`, seguidas por uma camada de saída [`softmax`](https://developers.google.com/machine-learning/crash-course/multi-class-neural-networks/softmax?hl=pt-br) que consiste em 7 unidades, cada uma representando uma das saídas (tipos de pitch), a soma das saídas da softmax é sempre 1.
 
-Treine o modelo com o otimizador Adam e a função de perda sparseCategoricalCrossentropy.
+Treine o modelo com o otimizador Adam e a função de perda [sparseCategoricalCrossentropy](https://keras.io/api/losses/probabilistic_losses/#sparse_categorical_crossentropy-function). Que é uma medida chamada [entropia cruzada](https://www.deeplearningbook.com.br/entropia-cruzada-para-quantificar-a-diferenca-entre-duas-distribuicoes-de-probabilidade/)
 
 Adicione o seguinte código ao final de [`pitch_type.js` html]:
 
@@ -207,8 +207,7 @@ Anexe este código ao final de [`pitch_type.js` html]:
 
 ``` js
 
-// Returns pitch class evaluation percentages for training data
-// with an option to include test data
+// Retorna porcentagens de avaliação de classe de argumento para dados de treinamento
 async function evaluate(useTestData) {
   let results = {};
   await trainingValidationData.forEachAsync(pitchTypeBatch => {
@@ -247,10 +246,10 @@ async function predictSample(sample) {
   return pitchFromClassNum(predictedPitch);
 }
 
-// Determines accuracy evaluation for a given pitch class by index
+// Determina a avaliação da precisão para uma determinada classe de pitch por índice
 function calcPitchClassEval(pitchIndex, classSize, values) {
-  // Output has 7 different class values for each pitch, offset based on
-  // which pitch class (ordered by i)
+  //A saída tem 7 valores de classe diferentes para cada afinação, deslocamento baseado em
+  //qual classe de pitch (ordenada por i)
   let index = (pitchIndex * classSize * NUM_PITCH_CLASSES) + pitchIndex;
   let total = 0;
   for (let i = 0; i < classSize; i++) {
@@ -260,7 +259,7 @@ function calcPitchClassEval(pitchIndex, classSize, values) {
   return total / classSize;
 }
 
-// Returns the string value for Baseball pitch labels
+// Retorna o valor da string para rótulos de campo de beisebol
 function pitchFromClassNum(classNum) {
   switch (classNum) {
     case 0:
@@ -320,12 +319,12 @@ const pitch_type = require('./pitch_type');
 const TIMEOUT_BETWEEN_EPOCHS_MS = 500;
 const PORT = 8001;
 
-// util function to sleep for a given ms
+// função para esperar por um determinado ms
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Main function to start server, perform model training, and emit stats via the socket connection
+// Função principal para iniciar o servidor, realizar treinamento de modelo e emitir estatísticas através da conexão de soquete
 async function run() {
   const port = process.env.PORT || PORT;
   const server = http.createServer();
@@ -448,7 +447,7 @@ predictButton.onclick = () => {
   socket.emit('predictSample', testSample);
 };
 
-// functions to handle socket events
+
 socket.on('connect', () => {
     document.getElementById('waiting-msg').style.display = 'none';
     document.getElementById('trainingStatus').innerHTML = 'Training in Progress';
