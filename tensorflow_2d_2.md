@@ -155,17 +155,7 @@ const trainingData =
         .shuffle(TRAINING_DATA_LENGTH)
         .batch(100);
 
-// Carregue todos os dados de treinamento em um lote para usar na avaliação
-const trainingValidationData =
-    tf.data.csv(TRAIN_DATA_PATH, {columnConfigs: {pitch_code: {isLabel: true}}})
-        .map(csvTransform)
-        .batch(TRAINING_DATA_LENGTH);
 
-// Carregue todos os dados de teste em um lote para usar na avaliação
-const testValidationData =
-    tf.data.csv(TEST_DATA_PATH, {columnConfigs: {pitch_code: {isLabel: true}}})
-        .map(csvTransform)
-        .batch(TEST_DATA_LENGTH);
 
 ```
 <br>
@@ -207,31 +197,6 @@ Anexe este código ao final de [`pitch_type.js` html]:
 
 ``` js
 
-// Retorna porcentagens de avaliação de classe de argumento para dados de treinamento
-async function evaluate(useTestData) {
-  let results = {};
-  await trainingValidationData.forEachAsync(pitchTypeBatch => {
-    const values = model.predict(pitchTypeBatch.xs).dataSync();
-    const classSize = TRAINING_DATA_LENGTH / NUM_PITCH_CLASSES;
-    for (let i = 0; i < NUM_PITCH_CLASSES; i++) {
-      results[pitchFromClassNum(i)] = {
-        training: calcPitchClassEval(i, classSize, values)
-      };
-    }
-  });
-
-  if (useTestData) {
-    await testValidationData.forEachAsync(pitchTypeBatch => {
-      const values = model.predict(pitchTypeBatch.xs).dataSync();
-      const classSize = TEST_DATA_LENGTH / NUM_PITCH_CLASSES;
-      for (let i = 0; i < NUM_PITCH_CLASSES; i++) {
-        results[pitchFromClassNum(i)].validation =
-            calcPitchClassEval(i, classSize, values);
-      }
-    });
-  }
-  return results;
-}
 
 async function predictSample(sample) {
   let result = model.predict(tf.tensor(sample, [1,sample.length])).arraySync();
@@ -246,18 +211,6 @@ async function predictSample(sample) {
   return pitchFromClassNum(predictedPitch);
 }
 
-// Determina a avaliação da precisão para uma determinada classe de pitch por índice
-function calcPitchClassEval(pitchIndex, classSize, values) {
-  //A saída tem 7 valores de classe diferentes para cada afinação, deslocamento baseado em
-  //qual classe de pitch (ordenada por i)
-  let index = (pitchIndex * classSize * NUM_PITCH_CLASSES) + pitchIndex;
-  let total = 0;
-  for (let i = 0; i < classSize; i++) {
-    total += values[index];
-    index += NUM_PITCH_CLASSES;
-  }
-  return total / classSize;
-}
 
 // Retorna o valor da string para rótulos de campo de beisebol
 function pitchFromClassNum(classNum) {
@@ -282,11 +235,9 @@ function pitchFromClassNum(classNum) {
 }
 
 module.exports = {
-  evaluate,
   model,
   pitchFromClassNum,
   predictSample,
-  testValidationData,
   trainingData,
   TEST_DATA_LENGTH
 }
@@ -300,7 +251,7 @@ Escreva o código do servidor para realizar o treinamento e avaliação do model
 
 Primeiro, crie um servidor HTTP e abra uma conexão de soquete bidirecional usando a API socket.io. 
 
-Em seguida, execute o treinamento do modelo usando o [`model.fitDataset API` html] e avalie a precisão do modelo usando o método [`pitch_type.evaluate()` html] que você escreveu anteriormente. 
+Em seguida, execute o treinamento do modelo usando o [`model.fitDataset API` html]. 
 
 Treine e avalie 10 iterações, imprimindo métricas no console.
 
@@ -344,7 +295,6 @@ async function run() {
   for (var i = 0; i < numTrainingIterations; i++) {
     console.log(`Training iteration : ${i+1} / ${numTrainingIterations}`);
     await pitch_type.model.fitDataset(pitch_type.trainingData, {epochs: 1});
-    console.log('accuracyPerClass', await pitch_type.evaluate(true));
     await sleep(TIMEOUT_BETWEEN_EPOCHS_MS);
   }
 
